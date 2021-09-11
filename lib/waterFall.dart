@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
+import 'package:get/get.dart';
 
 class WaterFallTest extends StatefulWidget {
   const WaterFallTest({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _WaterFallTestState extends State<WaterFallTest> {
 
   //Get image Size
   Size _calculateImageDimension(Image image) {
-    Size size = const Size(0, 0);
+    Rx<Size> size = const Size(0, 0).obs;
     image.image.resolve(const ImageConfiguration()).addListener(
       ImageStreamListener(
         (ImageInfo image, bool synchronousCall) {
@@ -25,11 +26,11 @@ class _WaterFallTestState extends State<WaterFallTest> {
           // printing image Height on the console
           print(
               "height====> ${myImage.height.toDouble()}");
-          size = Size(myImage.width.toDouble(), myImage.height.toDouble());
+          size.value = Size(myImage.width.toDouble(), myImage.height.toDouble());
         },
       ),
     );
-    return size;
+    return size.value;
   }
 
 
@@ -55,7 +56,7 @@ class _WaterFallTestState extends State<WaterFallTest> {
             fit: BoxFit.fitHeight,
           );
           //passing our values in the stateless widget
-          return ShowImage(image, _calculateImageDimension(image));
+          return Obx(()=> ShowImage(image, _calculateImageDimension(image)));
         },
       ),
     ));
