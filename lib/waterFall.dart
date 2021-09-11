@@ -11,7 +11,7 @@ class WaterFallTest extends StatefulWidget {
 }
 
 class _WaterFallTestState extends State<WaterFallTest> {
-  final List _list = [0, 1, 2, 3, 4, 5, 6, 7,8];
+  final List _list = [0, 1, 2, 3, 4, 5, 6, 7];
 
 
   //Get image Size
